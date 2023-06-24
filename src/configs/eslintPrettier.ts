@@ -1,16 +1,16 @@
 import { WidgetDetails } from "../interfaces/WidgetDetails";
-import { copyFile } from "../utils/copyFile";
+import { downloadFile } from "../utils/downloadFile";
 
 export const eslintPrettier = async ({ isTypescript }: WidgetDetails) => {
   const folder = isTypescript ? "eslint/ts" : "eslint/js";
 
   console.log("Configuring eslint...");
-  copyFile(`eslint/.eslintignore`, ".eslintignore");
-  copyFile(`${folder}/.eslintrc`, ".eslintrc");
-
-  console.log("Configuring prettier...");
-  copyFile(`prettier/.prettierignore`, ".prettierignore");
-  copyFile(`prettier/.prettierrc`, ".prettierrc");
+  await Promise.all([
+    downloadFile(`eslint/.eslintignore`),
+    downloadFile(`${folder}/.eslintrc`),
+    downloadFile(`prettier/.prettierignore`),
+    downloadFile(`prettier/.prettierrc`),
+  ]);
 
   const typescriptDevDependencies = isTypescript
     ? [

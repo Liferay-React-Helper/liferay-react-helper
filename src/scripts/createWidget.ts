@@ -2,8 +2,8 @@ import fs from "fs";
 import { cd } from "shelljs";
 
 import { WidgetDetails } from "../interfaces/WidgetDetails";
-import { copyFile } from "../utils/copyFile";
 import { silentExec } from "../utils/shell";
+import { downloadFile } from "../utils/downloadFile";
 
 export const createWidget = async ({
   widgetName,
@@ -20,23 +20,15 @@ export const createWidget = async ({
   fs.mkdirSync("src", { recursive: true });
   fs.mkdirSync("src/css", { recursive: true });
 
-  copyFile(`${folder}/.npmbundlerrc`, ".npmbundlerrc");
-
-  console.log("Configuring babelrc...");
-  copyFile(`${folder}/.babelrc`, ".babelrc");
-
-  console.log("Creating React widget...");
-  copyFile(`${folder}/src/index.tsx`, "src/index.tsx");
-  copyFile(`${folder}/src/liferay.d.ts`, "src/liferay.d.ts");
-  copyFile(`${folder}/src/App.tsx`, "src/App.tsx");
-
-  console.log("Adding sample CSS styles...");
-  copyFile(`${folder}/src/css/styles.scss`, "src/css/styles.scss");
-
-  if (isTypescript) {
-    console.log("Configuring tsconfig...");
-    copyFile(`${folder}/tsconfig.json`, "tsconfig.json");
-  }
+  await Promise.all([
+    downloadFile(`${folder}/.npmbundlerrc`),
+    downloadFile(`${folder}/.babelrc`),
+    downloadFile(`${folder}/src/index.tsx`, "/src"),
+    downloadFile(`${folder}/src/liferay.d.ts`, "/src"),
+    downloadFile(`${folder}/src/App.tsx`, "/src"),
+    downloadFile(`${folder}/src/css/styles.scss`, "/src/css"),
+    isTypescript ? downloadFile(`${folder}/tsconfig.json`) : null,
+  ]);
 
   const typescriptDevDependencies = isTypescript
     ? [

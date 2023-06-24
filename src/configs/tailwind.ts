@@ -1,12 +1,14 @@
+import { downloadFile } from "../utils/downloadFile";
 import { addImport } from "../scripts/addImport";
-import { copyFile } from "../utils/copyFile";
 import { getNpmBundle, writeNpmBundle } from "../utils/npmBundle";
 
 export const tailwind = async () => {
   console.log("Adding Tailwind CSS...");
 
-  copyFile("tailwind/tailwind.css", "src/css/tailwind.css");
-  copyFile("tailwind/tailwind.config.js", "tailwind.config.js");
+  await Promise.all([
+    downloadFile("tailwind/tailwind.css", "/src/css"),
+    downloadFile("tailwind/tailwind.config.js"),
+  ]);
 
   const npmBundle = getNpmBundle();
 
