@@ -1,5 +1,4 @@
-import fs from "fs";
-import { cd } from "shelljs";
+import { cd, mkdir, rm } from "shelljs";
 
 import { WidgetDetails } from "../interfaces/WidgetDetails";
 import { silentExec } from "../utils/shell";
@@ -15,10 +14,9 @@ export const createWidget = async ({
 
   cd(widgetName);
 
-  fs.rmSync("src", { recursive: true });
-
-  fs.mkdirSync("src", { recursive: true });
-  fs.mkdirSync("src/css", { recursive: true });
+  rm("-r", "src", ".babelrc");
+  mkdir("src");
+  mkdir("src/css");
 
   await Promise.all([
     downloadFile(`${folder}/.npmbundlerrc`),
