@@ -1,4 +1,4 @@
-import fs from "fs";
+import { mkdir } from "shelljs";
 import { WidgetDetails } from "../interfaces/WidgetDetails";
 import { downloadFile } from "../utils/downloadFile";
 
@@ -7,7 +7,7 @@ export const jest = async ({ isTypescript }: WidgetDetails) => {
 
   console.log("Configuring Jest and React Testing Library...");
 
-  fs.mkdirSync("src/tests", { recursive: true });
+  mkdir("src/tests");
 
   await Promise.all([
     downloadFile(`${folder}/jest.config.json`),
