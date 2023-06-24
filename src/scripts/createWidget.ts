@@ -34,12 +34,11 @@ export const createWidget = async ({
         "typescript",
         "@types/react",
         "@types/react-dom",
-        "@types/node",
       ]
     : [];
 
   return {
-    dependencies: ["@liferay/portal-agnostic", "react", "react-dom"],
+    dependencies: ["@liferay/portal-7.4"],
     devDependencies: [
       "@babel/core",
       "@babel/cli",
