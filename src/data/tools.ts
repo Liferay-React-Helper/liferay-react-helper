@@ -28,6 +28,10 @@ export const toolsPrompt = {
           name: "Jest + React Testing Library",
           value: config.jest,
         },
+        {
+          name: "Cypress",
+          value: config.cypress,
+        },
       ],
     },
     {
