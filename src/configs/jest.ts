@@ -3,20 +3,19 @@ import { WidgetDetails } from "../interfaces/WidgetDetails";
 import { downloadFile } from "../utils/downloadFile";
 
 export const jest = async ({ isTypescript }: WidgetDetails) => {
-  const folder = isTypescript ? "jest/ts" : "jest/js";
+  const folder = isTypescript ? "ts" : "js";
+  const extension = isTypescript ? "tsx" : "js";
 
   console.log("Configuring Jest and React Testing Library...");
 
   mkdir("src/tests");
 
   await Promise.all([
-    downloadFile(`${folder}/jest.config.json`),
-    downloadFile(`${folder}/tests/App.test.tsx`, "/src/tests"),
+    downloadFile(`jest/${folder}/jest.config.json`),
+    downloadFile(`jest/${folder}/App.test.${extension}`, "/src"),
   ]);
 
-  const typescriptDevDependencies = isTypescript
-    ? ["ts-jest", "@types/jest"]
-    : [];
+  const tsDevDependencies = isTypescript ? ["ts-jest", "@types/jest"] : [];
 
   return {
     dependencies: [],
@@ -25,7 +24,8 @@ export const jest = async ({ isTypescript }: WidgetDetails) => {
       "jest-environment-jsdom",
       "@testing-library/jest-dom",
       "@testing-library/react",
-      ...typescriptDevDependencies,
+      "@testing-library/user-event",
+      ...tsDevDependencies,
     ],
     scripts: [
       {
