@@ -11,7 +11,7 @@ export const createWidget = async ({
   const folder = isTypescript ? "ts" : "js";
   const extension = isTypescript ? "tsx" : "js";
 
-  silentExec(`liferay new ${widgetName} --batch`);
+  silentExec(`npx @liferay/cli new ${widgetName} --batch`);
 
   cd(widgetName);
 
