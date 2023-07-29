@@ -17,6 +17,10 @@ export const toolsPrompt = {
           name: "Eslint + Prettier",
           value: config.eslintPrettier,
         },
+        {
+          name: "Storybook",
+          value: config.storybook,
+        },
       ],
     },
     {
