@@ -44,23 +44,8 @@ export const toolsPrompt = {
       open: true,
       children: [
         {
-          name: "Styled Components",
-          value: config.styledComponents,
-        },
-        {
           name: "Tailwind CSS",
           value: config.tailwind,
-        },
-      ],
-    },
-    {
-      name: "✨ | Others",
-      value: "",
-      open: true,
-      children: [
-        {
-          name: "React Router Dom",
-          value: "routes",
         },
       ],
     },
