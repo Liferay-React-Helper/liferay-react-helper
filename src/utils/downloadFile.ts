@@ -17,7 +17,7 @@ export const downloadFile = async (
     );
 
     dl.on("end", () => {
-      console.log("Download Completed");
+      console.log(`Downloading ${resourcePath}`);
       resolve();
     });
 
